@@ -8,7 +8,11 @@ A Read Sequence Cleaning & Genome Assembly pipeline using Nextflow
 
 # Get Started
 
-Conda environment with fastp and spades
+
+Trimming: fastp
+Assembly: skesa
+
+Conda environment with fastp and skesa
 
 ```sh
 conda create -n nextflow -c bioconda fastp spades nextflow -y
