@@ -12,7 +12,9 @@ Conda environment with fastp and spades
 
 ```sh
 conda create -n nextflow -c bioconda fastp spades nextflow -y
-nextflow main.nf
+nextflow main.nf --read1 raw_data/F0582884_R1.fastq.gz --read2 raw_data/F0582884_R2.fastq.gz
 ```
+
+
 
 
