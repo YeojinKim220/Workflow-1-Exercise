@@ -1,49 +1,41 @@
 #!/usr/bin/env nextflow
 nextflow.enable.dsl=2
 
+params.reads1 = 'raw_data/F0582884_R1.fastq.gz'
+params.reads2 = 'raw_data/F0582884_R2.fastq.gz'
+
 process trim {
+    input:
+    file reads1
+    file reads2
 
-    
+    output:
 
-  input:
-    file reads
-  
-  output:
-    file "${reads:0:8}_trimmed.fq.gz " 
+    path "r1_trimmed.fq.gz", emit: r1
+    path "r2_trimmed.fq.gz", emit: r2
 
-  script:
-  """
-  fastp -i ${reads} -o ${reads:0:8}_trimmed.fq.gz  
-  """
+    script:
+    """
+    fastp -i ${reads1} -I ${reads2} -o r1_trimmed.fq.gz -O r2_trimmed.fq.gz  
+    """
 }
 
-process spades {
+process skesa {
+    input:
+    path reads1
+    path reads2
 
-  input:
-    file reads
-  output:
-    path "output" 
-
-  script:
-  """
-  spades.py --careful -s ${reads} -o output
-  """
-}
-
-//Channel
-     //reads_ch = Channel.fromPath("F0582884_R1.fastq")
-// reads_ch = Channel.fromPath("F0582884_R1.fastq")
- // .fromPath("/home/harry/Comp_genomics/nextflow/F0582884_R1.fastq") 
-//  .set { re
+    script:
+    """
+    skesa --reads ${reads1} ${reads2} --contigs_out skesa_assembly.fna 1> skesa.stdout.txt 2> skesa.stderr.txt
+    """
+    }
 
 workflow {
+    reads1_ch = file(params.reads1)
+    reads2_ch = file(params.reads2)
 
-reads_ch = file("F0582884_R1.fastq.gz")
-//reads_ch = Channel.fromPath("F0582884_R1.fastq")
-
-println reads_ch
-  main: 
-    trimmed_reads = trim(reads_ch)
-    spades(trimmed_reads)
-
+    main: 
+    trim(reads1_ch, reads2_ch)
+    skesa(trim.out.r1, trim.out.r2)
 }
