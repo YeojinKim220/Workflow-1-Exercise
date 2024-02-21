@@ -15,6 +15,11 @@ conda create -n nextflow -c bioconda fastp spades nextflow -y
 nextflow main.nf --read1 raw_data/F0582884_R1.fastq.gz --read2 raw_data/F0582884_R2.fastq.gz
 ```
 
+Add .fastq.gz file in ./raw_data folder 
+
+```sh
+nextflow main.nf --read1 raw_data/F0582884_R1.fastq.gz --read2 raw_data/F0582884_R2.fastq.gz
+```
 
 
 
