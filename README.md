@@ -14,7 +14,7 @@ A Read Sequence Cleaning & Genome Assembly pipeline using Nextflow
 Conda environment with fastp and skesa
 
 ```sh
-conda create -n nextflow -c bioconda fastp spades nextflow -y
+conda create -n nextflow -c bioconda fastp skesa nextflow -y
 ```
 
 Add .fastq.gz file in ./raw_data folder 
