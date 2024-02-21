@@ -8,9 +8,8 @@ A Read Sequence Cleaning & Genome Assembly pipeline using Nextflow
 
 # Get Started
 
-
-Trimming: fastp
-Assembly: skesa
+- Trimming: fastp 
+- Assembly: skesa
 
 Conda environment with fastp and skesa
 
